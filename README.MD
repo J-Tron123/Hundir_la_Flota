@@ -9,7 +9,7 @@
 ### Requerimientos
 
 - Para poder jugar a Hundir la Flota deberás ejecutar el comando ```pip install requirements.txt``` en la terminal para poder tener las dependencias necesarias para que corra el juego en tu ordenador
-- Luego de tener los requirimientos instalados deberás ejecutar el script ```game.py``` para poder jugar
+- Luego de tener los requirimientos instalados deberás ejecutar el script ```main.py``` para poder jugar
 
 Mucha Suerte!!!
 
