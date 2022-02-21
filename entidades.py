@@ -127,9 +127,9 @@ class Disparo():
         tablero_visible = tablero_visible
         coordenadas = self.coordenadas()
         if coordenadas:
-            if tablero_invisible[coordenadas] == "O":            # Si en el invisible hay barco en las coordenadas ingresadas
-                print(f"Disparaste a {coordenadas} y acertaste") # pone X en el visible
-                tablero_visible[coordenadas] = "X"
+            if tablero_invisible[coordenadas] == "O" and tablero_visible[coordenadas] == " ": 
+                print(f"Disparaste a {coordenadas} y acertaste") # Si en el invisible hay barco en las coordenadas ingresadas
+                tablero_visible[coordenadas] = "X"               # pone X en el visible
                 return True
             elif tablero_visible[coordenadas] == "-":         # Si ya hay - es que ya disparaste allí y te pide nuevas coordenadas
                 print(f"Ya disparaste a {coordenadas}")
@@ -148,11 +148,11 @@ class Disparo():
         x = random.randint(0, 9)
         y = random.randint(0, 9)
         coordenadas = (x, y)
-        if tablero_invisible[coordenadas] == "O":
+        if tablero_invisible[coordenadas] == "O" and tablero_visible[coordenadas] == " ":
             print(f"La máquina disparó a {coordenadas} y acertó")
             tablero_visible[coordenadas] = "X"
             return True
-        elif tablero_visible[coordenadas] == "-":
+        elif tablero_visible[coordenadas] == "-" or tablero_invisible[coordenadas] == "O" and tablero_visible[coordenadas] == "X":
             self.disparo_maquina(tablero_visible=tablero_visible, tablero_invisible=tablero_invisible)
         else:
             print(f"La máquina disparó a {coordenadas} y falló")
