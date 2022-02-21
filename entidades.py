@@ -123,38 +123,43 @@ class Disparo():
             self.coordenadas()
         
     def disparo_usuario(self, tablero_visible, tablero_invisible):
+        comprueba_disparo = []
         tablero_invisible = tablero_invisible # Guardo cada tablero en una variable
         tablero_visible = tablero_visible
         coordenadas = self.coordenadas()
         if coordenadas:
-            if tablero_invisible[coordenadas] == "O" and tablero_visible[coordenadas] == " ": 
-                print(f"Disparaste a {coordenadas} y acertaste") # Si en el invisible hay barco en las coordenadas ingresadas
-                tablero_visible[coordenadas] = "X"               # pone X en el visible
-                return True
-            elif tablero_visible[coordenadas] == "-":         # Si ya hay - es que ya disparaste allí y te pide nuevas coordenadas
-                print(f"Ya disparaste a {coordenadas}")
-                self.disparo_usuario(tablero_visible=tablero_visible, tablero_invisible=tablero_invisible)
+            if not coordenadas in comprueba_disparo:
+                if tablero_invisible[coordenadas] == "O" and tablero_visible[coordenadas] == " ": 
+                    comprueba_disparo.append(coordenadas)            # Guardo coordenadas existentes
+                    print(f"Disparaste a {coordenadas} y acertaste") # Si en el invisible hay barco en las coordenadas ingresadas
+                    tablero_visible[coordenadas] = "X"               # pone X en el visible
+                    return True
+                else:
+                    print(f"Disparaste a {coordenadas} y fallaste")  # Si en el invisible no hay barco en las coordenadas ingresadas
+                    tablero_visible[coordenadas] = "-"               # pone - en el visible
+                    return False
             else:
-                print(f"Disparaste a {coordenadas} y fallaste")  # Si en el invisible no hay barco en las coordenadas ingresadas
-                tablero_visible[coordenadas] = "-"               # pone - en el visible
-                return False
+                print(f"Ya disparaste a {coordenadas}") # Si ya disparaste allí y te pide nuevas coordenadas
+                self.disparo_usuario(tablero_visible=tablero_visible, tablero_invisible=tablero_invisible)
         else:
             print("Debes insertar números entre el 0 y el 9")
             self.disparo_usuario(tablero_visible=tablero_visible, tablero_invisible=tablero_invisible)
 
-    def disparo_maquina(self, tablero_visible, tablero_invisible): # La misma lógica del disparo del usuario pero generando
+    def disparo_maquina(self, tablero_visible, tablero_invisible):
+        comprueba_disparo = []                                     # La misma lógica del disparo del usuario pero generando
         tablero_invisible = tablero_invisible                      # las coordenadas aleatoriamente
         tablero_visible = tablero_visible
         x = random.randint(0, 9)
         y = random.randint(0, 9)
         coordenadas = (x, y)
-        if tablero_invisible[coordenadas] == "O" and tablero_visible[coordenadas] == " ":
-            print(f"La máquina disparó a {coordenadas} y acertó")
-            tablero_visible[coordenadas] = "X"
-            return True
-        elif tablero_visible[coordenadas] == "-" or tablero_invisible[coordenadas] == "O" and tablero_visible[coordenadas] == "X":
-            self.disparo_maquina(tablero_visible=tablero_visible, tablero_invisible=tablero_invisible)
+        if not coordenadas in comprueba_disparo:
+            if tablero_invisible[coordenadas] == "O" and tablero_visible[coordenadas] == " ":
+                print(f"La máquina disparó a {coordenadas} y acertó")
+                tablero_visible[coordenadas] = "X"
+                return True
+            else:
+                print(f"La máquina disparó a {coordenadas} y falló")
+                tablero_visible[coordenadas] = "-"
+                return False
         else:
-            print(f"La máquina disparó a {coordenadas} y falló")
-            tablero_visible[coordenadas] = "-"
-            return False
+            self.disparo_maquina(tablero_visible=tablero_visible, tablero_invisible=tablero_invisible)
