@@ -1,4 +1,3 @@
-from winreg import HKEY_LOCAL_MACHINE
 import numpy as np
 from __init__ import *
 import random
